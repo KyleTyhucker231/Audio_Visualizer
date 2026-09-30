@@ -2,6 +2,7 @@ import wave
 import pygame
 import numpy
 import pyaudio
+import time
 
 #packages need pygame, numpy, scipy, pyaudio
 
