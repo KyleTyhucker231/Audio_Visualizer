@@ -4,7 +4,10 @@ import numpy
 import pyaudio
 import time
 
-#packages need pygame, numpy, scipy, pyaudio
+#okay somehow need to get my audio data processed for the function in the other files 
+#import the functions, process the data, convert that alter sample data into a stream of bytes
+#so pyaudio can read that into a stream and play that audio back
+#first step 
 
 filename = "guitar_loop.wav"
 chunk = 1024                    # 1024 bits
