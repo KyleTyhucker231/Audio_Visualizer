@@ -1,33 +1,29 @@
-import wave
-import pygame
 import numpy
 import pyaudio
-import time
+from scipy.io import wavfile
+import audio_functions
 
-#okay somehow need to get my audio data processed for the function in the other files 
-#import the functions, process the data, convert that alter sample data into a stream of bytes
-#so pyaudio can read that into a stream and play that audio back
-#first step 
-
+#read the wavfile, transfer data into a samples array
 filename = "guitar_loop.wav"
+data = wavfile.read(filename)
+sample_rate = data[0]
+samples = data[1]    
+
 chunk = 1024                    # 1024 bits
-w =  wave.open(filename, 'rb')  #rb means read binary, reads the file as binary
+
 p = pyaudio.PyAudio()           #instaialize the pyaudio object
 
 
 #open a new audio stream with the given parameters found from the guitar_wave.wav file
 #find the sample width, channels, framerate etc using wave to find that info
-stream = p.open(format=p.get_format_from_width(w.getsampwidth()), #sample width is the same as bit depth!!
-                channels=w.getnchannels(),
-                rate=w.getframerate(),
+stream = p.open(format=pyaudio.paInt16,
+                channels=2, 
+                rate=sample_rate,
                 output=True)
 
-
-data  = w.readframes(chunk)
-
-while data != b'':
-    stream.write(data)
-    data = w.readframes(chunk)
+for i in range(0, len(samples), chunk):
+    current_chunk = samples[i:i+chunk]
+    stream.write(current_chunk.tobytes())
 
 
 #close the audio stream and end the pyaudio object
