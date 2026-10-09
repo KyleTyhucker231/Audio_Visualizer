@@ -32,6 +32,6 @@ def audio_to_bytes(samples_array):
         return bytes_array
 
 
-print(samples.dtype)
+#print(samples.dtype)
 #print(samples)
 #print(adjust_volume(samples, 0.5))
